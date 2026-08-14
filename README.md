@@ -1,42 +1,48 @@
-## **1. Project Introduction**
+## **一.项目介绍**
 
-* Project Overview
+- 项目概述
 
-  Develop and integrate a ROS package for a bipedal dual-arm robot, which includes mechanical arms, a mobile chassis, visual sensors, and a head servo control module.
+  开发并集成一个具身双臂机器人的ROS功能包，集成了机械臂、移动底盘、视觉传感器以及头部舵机控制模块。
 
-* System Composition
-  1. **Mechanical Arm Module**：With two 7/6-axis robotic arms, it has the ability of single-arm independent operation and dual-arm cooperative operation.
-  2. **Mobile Chassis Module (`AGV`）**: Equipped with motion, navigation, and obstacle avoidance capabilities.
-  3. **Visual Sensor Module (`D435`）**：`Intel RealSense D435`The camera provides depth images,`RGB`images, and depth values of specified pixels, supporting the robot in environmental perception, object recognition, and localization functions.
-  4. **Head Servo Module**: By controlling the head servo, the robot can flexibly adjust its viewpoint, enhancing its ability to observe the environment.
+- 系统组成
+  1. **机械臂模块**：搭配两台7/6轴机械臂，具备单臂独立操作和双臂协同操作能力。
+  2. **移动底盘模块（`AGV`）**:具备运动、导航、避障能力。
+  3. **视觉传感器模块（`D435`）**：`Intel RealSense D435`相机提供了深度图像、`RGB`图像以及指定像素点的深度值，支持机器人进行环境感知、物体识别与定位等功能。
+  4. **头部舵机模块**：通过控制头部舵机，机器人能够灵活地调整视角，增强对环境的观测能力。
 
-![dual\_lift\_robot.png](./pictures/dual_lift_robot.png.png)
+![dual_lift_robot.png](./pictures/dual_lift_robot.png.png)
 
-​                                                                                                              Figure 1 Bipedal Dual-Arm Robot
+​                                                                                                                         图1 具身双臂机器人
 
-* Code Version
+- 代码版本
 
   `V1.1.2`
+  
+- 硬件环境
 
-* Hardware Environment
+  | 部件名称                                                     | 硬件版本信息                                                 | 软件版本信息                                           |
+  | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------ |
+  | 机械臂                                                       | RM75-B/RM65-B                                                | 控制器V1.4.10及以上，API V4.2.8及以上，ROS功能包V2.0.1 |
+  | 相机                                                         | Realsense D435C                                              | realsense-ros-2.3.2                                    |
+  | 主控                                                         | jetson xavier NX                                             | ubuntu20.04 、ros-noetic                               |
+  | 底盘                                                         | 悟时                                                         |                                                        |
+  | 头部舵机                                                     | LX-224HV 1                                                   | 串口通信                                               |
+  | 末端工具（可选）                                             | RMG24平行夹爪/EG2-4C2夹爪/灵巧手（右手RM56DFX-2R/左手RM56DFX-2L/傲翼™（OHand™） |                                                        |
+  | 更多信息参考：https://develop.realman-robotics.com/robot/versionComparisonTable.html ROS包下载：https://github.com/RealManRobot |                                                              |                                                        |
+  
+  
+  
 
-  | Component Name                                               | Hardware Version Information                                 | Software Version Information                                 |
-  | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-  | Mechanical Arm                                               | RM75-B/RM65-B                                                | Controller V1.4.10 and above, API V4.2.8 and above, ROS Package V2.0.1 |
-  | Camera                                                       | Realsense D435C                                              | realsense-ros-2.3.2                                          |
-  | Main Control                                                 | jetson xavier NX                                             | ubuntu20.04 、ros-noetic                                     |
-  | Chassis                                                      | wushi                                                        |                                                              |
-  | Head Servo                                                   | LX-224HV 1                                                   | Serial Communication                                         |
-  | End Effector (Optional)                                      | RMG24平行夹爪/EG2-4C2夹爪/灵巧手（右手RM56DFX-2R/左手RM56DFX-2L/傲翼™（OHand™） |                                                              |
-  | For more information, refer to:<https://develop.realman-robotics.com/robot/versionComparisonTable.html> ROS Package Download:<https://github.com/RealManRobot> |                                                              |                                                              |
+## 二.环境要求
 
-## 2. Environmental Requirements
+- 系统：`Ubuntu `20.04
 
-* System:`Ubuntu `20.04
+- ROS：`noetic`
 
-* ROS：`noetic`
+  
 
-## **3. Code Structure**
+## **三.代码结构**
+
 
 ```
 
@@ -605,37 +611,45 @@ rmc_aida_l_ros1
 
 ```
 
-## **4. Compilation Method**
 
-```
-1.cd rmc_aida_l_ros1
-2.catkin build dual_arm_msgs
-3.catkin build
-```
 
-## 5. Running Instructions
+## **四.编译方法**
 
-### 5.1**Start the ROS control node for the bipedal dual-arm robot's mechanical arm**：
+    1.cd rmc_aida_l_ros1
+    2.catkin build dual_arm_msgs
+    3.catkin build
 
-* `cd rmc_aida_l_ros1`
-* `source devel/setup.bash`
-* `roslaunch arm_driver dual_arm_<type>_driver.launch`     # type is 65 or 75
 
-### 5.2 Start the overall case package for the bipedal dual-arm robot
 
-#### 5.2.1 Activity case of the overall components of the embodied robot (mechanical arm, servo,`USB`camera,`D435`camera, chassis, lift)
+## 五.运行指令
 
-* `cd rmc_aida_l_ros1`
-* `source devel/setup.bash`
-* `roslaunch dual_arm_robot_demo dual_arm_<type>_robot_start.launch`     # type is 65 or 75
 
-e.g. If the dual arms of the embodied robot are 65 arms, then the running instruction is
+
+### 5.1**启动具身双臂机器人机械臂ROS控制节点**：
+
+- `cd rmc_aida_l_ros1`
+- `source devel/setup.bash`
+- `roslaunch arm_driver dual_arm_<type>_driver.launch`     #  type 为 65 或 75
+
+
+
+### 5.2 启动具身双臂机器人整体案例
+
+#### 5.2.1 具身机器人整体部件活动案例（机械臂、舵机、`USB`相机、`D435`相机、底盘、升降）
+
+
+
+- `cd rmc_aida_l_ros1`
+- `source devel/setup.bash`
+- `roslaunch dual_arm_robot_demo dual_arm_<type>_robot_start.launch`     #  type 为 65 或 75
+
+e.g. 如果具身机器人双臂是65臂的话 ，运行指令
 
 ```
 roslaunch dual_arm_robot_demo dual_arm_65_robot_start.launch
 ```
 
-dual\_arm\_65\_robot\_start.launch reads as follows：
+dual_arm_65_robot_start.launch内容如下：
 
 ```
 <launch>
@@ -675,161 +689,173 @@ dual\_arm\_65\_robot\_start.launch reads as follows：
 
 ```
 
-Note that before running the overall case, if the chassis is needed in the case, it is necessary to use the chassis mapping software to establish the map point 'A'. For related chassis software and usage tutorials, please refer to  [Chassis-related Information](.//src/agv_demo/底盘说明文件)
+注意，运行整体案例前，如果需要在案例中使用底盘，则需要使用底盘建图软件建立地图点位"A"，相关底盘软件和使用教程请参考  [底盘相关资料](.//src/agv_demo/底盘说明文件)
 
-If the chassis is not used, please comment out this line in the launch file above
+如果不使用底盘，请在上面launch文件中注释这行
 
-> ​    <node pkg="agv_demo" name="agv_demo" type="agv_demo.py" cwd="node" output="screen"/>
+>​    <node pkg="agv_demo" name="agv_demo" type="agv_demo.py" cwd="node" output="screen"/> 
 
-#### 5.2.2 Embodied Robot Movement Recognition Grasping Case
 
-The end effector used in the current case is Aoyi `Ohand`dexterous hand /`RMG24`gripper
 
-##### 5.2.2.1 Preparation Before Running the Case
+#### 5.2.2 具身机器人移动识别抓取案例
 
-1. Set Camera Device ID
+当前案例使用的末端工具是傲意`Ohand`灵巧手/`RMG24`夹爪
 
-   Check if it is installed`realsense-viewer` , if installed, skip the installation steps below
+##### 5.2.2.1 案例运行前准备
 
-   * Install`realsense-viewer`
+1. 设置相机设备ID
 
-     **Register the server's public key**
+   查看是否安装了`realsense-viewer` ，如果安装，跳过下面安装步骤
+
+   - 安装`realsense-viewer` 
+
+     **注册服务器的公钥**
 
      ```
      sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade
      sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
-
+     
      ```
 
-     **Add the server to the repository list**
+     **将服务器添加到存储库列表中**
 
      ```
      sudo add-apt-repository "deb https://librealsense.intel.com/Debian/apt-repo $(lsb_release -cs) main" -u
-
+     
      ```
 
-     **Install SDK2**
+     **安装SDK2**
 
      ```
      sudo apt-get install librealsense2-utils
      sudo apt-get install librealsense2-dev 
      ```
 
-     **Note: If on a non-Jetson Xavier NX device, it is recommended to install using the following method**
+     **说明：如果在非Jetson Xavier NX设备上，建议用以下方式安装**
 
      ```
      sudo apt-get install librealsense2-dkms
      sudo apt-get install librealsense2-utils
      ```
 
-   * Check the ID of the D435 camera on the right arm of the mechanical arm
+   - 查看机械臂右臂d435相机ID
 
-     Open the robot host terminal and enter:
+     打开机器人主机terminal，输入:
 
      ```4
      realsense-viewer
      ```
 
-     In the displayed interface, click Add Source to select the D435 camera
+     在显示的界面上点击Add Source选择D435相机
 
      ![image-20241224152610093](./images/image-20241224152610093.png)
 
-     ​													Figure 2 Just Opened`realsense-viewer`
+     ​													图2 刚打开的`realsense-viewer`
 
-     Open the RGB Camera of each D435 camera, and determine which one is the camera on the right arm of the mechanical arm based on the opened camera interface.
+     打开各个D435相机的RGB Camera，根据打开的相机界面，判断哪个是机械臂右臂上的相机
 
      ![image-20241224154959640](./images/image-20241224154959640.png)
 
-     ​                                                                                                                                   Figure 3
+     ​                                                                                                                                   图3 
 
-     Select the ID of the right arm camera
+     选择右臂相机的ID
 
      ![image-20241224155254773](./images/image-20241224155254773.png)
 
-     ​                                                                                                                        Figure 4
-
-     Fill in the ID of the right arm camera into [Configuration File](src/dual_arm_robot_demo/scripts/config.yaml)
-
+     ​                                                                                                                        图4
+     
+     将右臂相机的ID填入到[配置文件](src/dual_arm_robot_demo/scripts/config.yaml)
+     
      ![image-20241224155839852](./images/image-20241224155839852.png)
+     
+     ​                                                                                                                       图5
+     
+     
 
-     ​                                                                                                                       Figure 5
+2. 将瓶子放置在一个固定平台上（桌子或者其他平台）
 
-2. Place the bottle on a fixed platform (table or other platform)
+​	![IMG_20241224_195748](./images/IMG_20241224_195748.jpg)
 
-​	![IMG\_20241224\_195748](./images/IMG_20241224_195748.jpg)
+​                                                                                                             图6 抓取前具身机器人和瓶子的放置位置
 
-​                                                                                             Figure 6 Position of the embodied robot and the bottle before grasping
 
-3. Position the right arm in the recognition pose
 
-​	Align the robot's front with the bottle, open a terminal, and execute the command below to activate the mechanical arm:
+3. 让右臂处于识别位姿
+
+​	将机器人的正面对准瓶子，打开一个终端，执行下面命令启动机械臂driver：
 
 ```
 source devel/setup.bash
 roslaunch arm_driver dual_arm_65_driver.launch
 ```
 
-​	Open another terminal and execute the command below to move the mechanical arm to the pose for the camera to take a picture:
+​	打开另外一个终端，执行下面命令让机械臂到达相机拍照的姿态：
 
 ```
 rosrun dual_arm_robot_demo camera_pose.py
 ```
 
-At this moment, the posture of the right arm of the mechanical arm is as shown in the figure (the end effector in the image is`RMG24`parallel gripper):
+​	此时机械臂右臂的姿态如图（图片里的末端工具是`RMG24`平行夹爪）：
 
 ![f299091b8c60ca1b51d483f395200003](./images/f299091b8c60ca1b51d483f395200003.jpg)
 
-​                                                                             Figure 7 The posture of the mechanical arm when the embodied robot recognizes an object
+​                                                                                                                图7 具身机器人识别物体时机械臂位姿
 
-4\. Open the camera recognition model:
 
-Open a terminal and execute the command below
+
+4.打开相机识别模型：
+
+打开一个终端，执行下面命令：
 
 ```
 source devel/setup.bash
 rosrun dual_arm_robot_demo detect_object.py
 ```
 
-At this moment, a visual detection interface will pop up, as shown in the figure below:
+​	此时弹出一个视觉检测界面，如下图：
 
 ![1735039999963](./images/1735039999963.jpg)
 
-​														 Figure 8 Recognition Interface
+​														 图8  识别界面
 
 
 
-5\. Adjust the robot's lifting height
+​        
 
-If the bottle has already appeared on the visual detection page in step four, this step does not need to be performed; otherwise, execute the command below to adjust the lifting height so that the bottle appears on the visual detection page:
+5.调整机器人升降高度
+
+如果第四步瓶子已经出现在视觉检测页面里，则不需要操作这一步，否则，执行下面命令来调整升降高度来使瓶子出现在视觉检测页面里：
 
 ```
 source devel/setup.bash
 rosrun dual_arm_robot_demo lift_control.py
 ```
 
-##### 5.2.2.2 Running Example
+##### 5.2.2.2 运行案例
 
-**Close**The several open services above
+**关闭**上面的几个打开的服务
 
-Execute the command below to carry out the entire grasping demo
+执行下面命令执行整个抓取demo
 
-The end effector is`RMG24`gripper, execute the program below:
+末端工具为`RMG24`夹爪，执行下面程序：
 
 ```
 source devel/setup.bash
 roslaunch dual_arm_robot_demo startlaunch_grippers.launch
 ```
 
-The end effector is an agile hand, execute the program below:
+末端工具为傲意灵巧手，执行下面程序：
 
 ```
 source devel/setup.bash
 roslaunch dual_arm_robot_demo startlaunch_hand.launch
 ```
 
-If the chassis is needed in the example, the chassis mapping software must be used to establish the map point 'A' (when establishing the chassis point, the direction of robot A needs to face the bottle, and establish`dianA` at this time, the robot needs to execute [**5.2.2.1 Preparation Before Running the Case**](#5.2.2.1 Preparation Before Running the Case), related chassis software and usage tutorials can be referred to  [Chassis-related Information](.//src/agv_demo/底盘说明文件)
 
-and **uncomment** `startlaunch.launch`the command for running chassis instructions in:
+
+如果需要在案例中使用底盘，则需要使用底盘建图软件建立地图点位"A"（建立底盘点位时A机器人的方向需要使机器人面向瓶子，并且建立`dianA`时后需要机器人需要执行[**5.2.2.1 案例运行前准备**](#5.2.2.1 案例运行前准备)，相关底盘软件和使用教程请参考  [底盘相关资料](.//src/agv_demo/底盘说明文件)
+
+并且**取消注释**`startlaunch.launch`中运行底盘指令的命令：
 
 ```
 <launch>
@@ -846,27 +872,32 @@ and **uncomment** `startlaunch.launch`the command for running chassis instructio
 
 ```
 
-### 5.3 **In`rviz`Display the robot model**
+
+
+### 5.3**在`rviz`中显示机器人模型**
+
+
 
 ```shell
 cd embodied_robot
 
 source devel/setup.bash
 
-roslaunch overseas_<arm_type>_b_v_description display.launch  
+roslaunch overseas_{65,75}_b_v_description display[_rmg24].launch  
 ```
 
-Where \<arm\_type> can be replaced with the current mechanical arm model type 65 or 75
 
-If the embodied robot is using the 65 arm, use the following command:
 
-- The end - effector is the RMG24 gripper:
+其中<arm_type>可更换为当前的机械臂型号类型 65或者75，如果具身机器人使用的是65臂的话，使用如下指令:
+
+- 末端工具为RMG24夹爪时：
 
   ```
   roslaunch overseas_65_b_v_description display_rmg24.launch
   ```
 
-- The end - effector tool is the Aoyi™ Dexterous Hand:
+
+- 末端工具为傲翼™灵巧手时：
 
   ```
   roslaunch overseas_65_b_v_description display.launch
@@ -874,18 +905,20 @@ If the embodied robot is using the 65 arm, use the following command:
 
   
 
-
-
-Under normal circumstances, as shown in Figure 9:
+正常情况下如图9所示（末端工具傲翼™灵巧手）：
 ![image-20241115170248370](./pictures/image-20241115170248370.png)
 
-​                                                                                                   Figure 9 shows`rviz`the embodied dual-arm robot
+​                                                                                                   图9 在`rviz`中显示具身双臂机器人
 
-If `rviz` the model is not displayed, manually change 'Fixed Frame' to 'body\_base\_link', and then click the Add button at the bottom left to find '`RobotModel`' and add it
+如果 `rviz` 中未显示模型，则手动修改“Fixed Frame”为“body_base_link”，然后点击左侧下方的 Add 按钮在弹出的界面中找到“`RobotModel`”添加即可
 
-### 5.4 **Run the`MoveIt!`demonstration demo of the embodied dual-arm robot**
 
-Open the terminal, enter the workspace, and execute the following command to run the embodied robot's`MoveIt!`demonstration demo:
+
+### 5.4 **运行 具身双臂机器人的`MoveIt!`演示demo** 
+
+
+
+打开终端进入工作空间执行以下命令运行具身机器人的`MoveIt!`演示 demo：
 
 ```shell
 cd embodied_robot
@@ -895,43 +928,51 @@ source devel/setup.bash
 roslaunch dual_{65,75}B_arm[_rmg24]_moveit_config demo.launch
 ```
 
-For the embodied dual-arm robot using `RM65 `The following instructions are used for the mechanical arm.
+如在具身双臂机器人使用 `RM65 `机械臂时:
 
-- The end - effector is the RMG24 gripper:
+- 末端工具为RMG24夹爪：
 
   ```
   roslaunch dual_65B_arm_rmg24_moveit_config demo.launch
   ```
 
-- The end - effector tool is the Aoyi™ Dexterous Hand:
+- 末端工具为傲翼™灵巧手：
 
   ```
   roslaunch dual_65B_arm_moveit_config demo.launch
   ```
 
-After successful startup, you can see the interface as shown in the figure:
+启动成功后，可以看到如图所示的界面：
 
 ![image-20241115183544803](./pictures/image-20241115183544803.png)
 
-​									                                 Figure 10 `MoveIt! `Startup interface of the demo
+​									                                 图10 `MoveIt! `demo的启动界面
 
-**Drag Planning**
 
-By dragging the front end of the mechanical arm, you can change the posture of the mechanical arm. Then click the “Plan & Execute” button in the Planning tab,`MoveIt!`to start planning the path and control the robot to move to the target position.
 
-From the right-side interface, you can see the entire process of the robot's movement.
+**拖动规划**
+
+拖动机械臂的前端，可以改变机械臂的姿态。然后在 Planning 标签页中点击“Plan & Execute”按钮，`MoveIt!`开始规划路径，并且控制机器人向目标位置移
+
+动，从右侧界面可以看到机器人运动的全部过程。
+
+
 
 ![image-20241115183720521](./pictures/image-20241115183720521.png)
 
-​                                                                                                                Figure 11 Motion effect of drag planning
+​                                                                                                                图11 拖动规划的运动效果
 
-**Select Target Posture Planning**
+**选择目标姿态规划**
 
-In the Planning tab, click the dropdown list of Goal State to select the target posture of the mechanical arm,and then click the “Plan & Execute” button.`MoveIt!`Start planning the path and control the robot to move to the target position.
+在 Planning 标签页中点击 Goal State 的下拉列表可以选择机械臂的目标姿态，然后点击“Plan & Execute”按钮，`MoveIt!`开始规划路径，并且控制机器人向
 
-### 5.5  **Use** **`MoveIt!`Control Gazebo** **to manipulate the mechanical arm**
+目标位置移动。
 
-Execute the following commands to run `MoveIt!`and Gazebo:
+
+
+### 5.5  **使用** **`MoveIt!`控制Gazebo** **中的机械臂**
+
+执行以下命令运行 `MoveIt!`和 Gazebo:
 
 ```shell
 
@@ -943,15 +984,15 @@ roslaunch dual_{65,75}B_arm_gazebo arm_{65,75}_bringup_moveit[_rmg24].launch
 
 ```
 
-When the embodied dual-arm robot is using`RM65` the mechanical arm, the following commands need to be executed.
+当具身双臂机器人使用的是`RM65` 机械臂时:
 
-- The end - effector is the RMG24 gripper:
+- 末端工具为RMG24夹爪：
 
   ```
   roslaunch dual_65B_arm_gazebo arm_65_bringup_moveit_rmg24.launch 
   ```
 
-- The end - effector tool is the Aoyi™ Dexterous Hand:
+- 末端工具为傲翼™灵巧手：
 
   ```
   roslaunch dual_65B_arm_gazebo arm_65_bringup_moveit.launch 
@@ -959,33 +1000,35 @@ When the embodied dual-arm robot is using`RM65` the mechanical arm, the followin
 
   
 
-Open Gazebo after starting as shown in Figure 12:
+启动后打开的 Gazebo 如图12：
 
 ![image-20241115180100361](./pictures/image-20241115180100361.png)
 
-​                                                                                               Figure 12 shows the display effect of the embodied dual-arm robot in Gazebo.
+​                                                                                               图12 具身双臂机器人在Gazebo中显示效果
 
+​                                                              
 
-
-Open after starting `rviz `as shown in Figure 13:
+启动后打开的 `rviz `如图13所示：
 
 ![image-20241115180136399](./pictures/image-20241115180136399.png)
 
-​								                                                  Figure 13 `rviz`the embodied dual-arm robot
+​								                                                  图13 `rviz`中显示具身双臂机器人
 
-Next, use `MoveIt!`various methods for motion planning to control the robot in Gazebo, for example, drag the end of the robot's mechanical arm to a position as shown in Figure 14, then click the 'Plan & Execute' button to see`rviz`The robot in the middle begins to plan and execute, and you can see the robot in Gazebo starting to move and`rviz `maintain consistency with the robot model, as shown in Figure 15.
+接下来使用 `MoveIt!`规划运动的几种方式就可以控制 Gazebo 中的机器人了，例如图14拖动机器人机械臂末端到一个位置，然后点击“Plan & Execute”按钮，可以看到`rviz`中机器人开始规划执行并且可以看到Gazebo中的机器人开始运动且与`rviz `中的机器人模型保持一致，如图 15所示。
 
 ![image-20241115180609419](./pictures/image-20241115180609419.png)
 
-​                                                                                                          Figure 14 uses`MoveIt!`dragging to plan execution
+​                                                                                                          图14 使用`MoveIt!`拖动规划执行
 
 ![image-20241115180726522](./pictures/image-20241115180726522.png)
 
-​								                             Figure 15 the robot in Gazebo according to`rviz`the effect of synchronized execution of the plan
+​								                             图15 Gazebo中机器人按`rviz`规划同步执行效果
 
-### 5.6 uses `MoveIt!`control of the real mechanical arm
 
-Execute the following commands to run `MoveIt!`and the mechanical arm:
+
+### 5.6使用 `MoveIt!`控制真实机械臂
+
+执行以下命令运行 `MoveIt!`和机械臂:
 
 ```shell
 cd rmc_aida_l_ros1
@@ -996,39 +1039,45 @@ roslaunch dual_{65,75}B_arm[_rmg24]_moveit_config moveit_planning_execution.laun
 
 ```
 
-When the embodied robot is`RM65 `a mechanical arm, the following commands need to be executed.
 
-- The end - effector is the RMG24 gripper:
+
+当具身机器人是`RM65 `机械臂时，需要运行如下指令。
+
+- 末端工具为RMG24夹爪:
 
   ```
   roslaunch dual_65B_arm_rmg24_moveit_config moveit_planning_execution.launch 
   ```
 
-- The end - effector tool is the Aoyi™ Dexterous Hand:
+- 末端工具为傲翼™灵巧手：
 
   ```
   roslaunch dual_65B_arm_moveit_config moveit_planning_execution.launch 
   ```
 
-Open after starting `rviz `As shown in Figure 16:
+  ​                                                              
+
+启动后打开的 `rviz `如图16所示：
 
 ![image-20241115180136399](./pictures/image-20241115180136399.png)
 
-​                                                                                                              Figure 16 `rviz`the embodied dual-arm robot
+​                                                                                                              图16 `rviz`中显示具身双臂机器人
 
-Next, use `MoveIt!`By planning various ways to move, you can control the robot in Gazebo. For example, drag the end of the robot to a position in Figure 17, then click the 'Plan & Execute' button, and you can see the real mechanical arm of the embodied dual-arm robot starting to execute, reaching and`moveIt!`At the same position as the mechanical arm.
+接下来使用 `MoveIt!`规划运动的几种方式就可以控制 Gazebo 中的机器人了，例如图17拖动机器人末端到一个位置，然后点击“Plan & Execute”按钮，可以看到具身双臂机器人的真实机械臂开始执行，到达和`moveIt!`中机械臂一样的位置。
 
-![image-20241115180609419](./pictures/image-20241115180609419.png)
+![	](./pictures/image-20241115180609419.png)
 
-​                                                                          Figure 17 uses`MoveIt!`dragging to plan execution
+​                                                                                                         图17 使用`MoveIt!`拖动规划执行
 
-## 6. Version Update
 
-| Revised Version |                Content Update                | Effective Date |
-| :-------------: | :------------------------------------------: | :------------: |
-|     V1.0.0      |           Initial Code Submission            |   2024-12-07   |
-|     V1.1.0      |             Added Grasping Demo              |   2024-12-26   |
-|     V1.1.1      |                Add README.md                 |   2024-12-27   |
-|     V1.1.2      | D435 Camera and Chassis Topic Conflict Issue |   2025-01-09   |
-|     V1.2.0      | Add simulation of self - developed grippers  |   2025-02-09   |
+
+## 六.版本更新
+
+| 修订版本 |          内容更新          |  生效日期  |
+| :------: | :------------------------: | :--------: |
+|  V1.0.0  |        首次提交代码        | 2024-12-07 |
+|  V1.1.0  |        增加抓取demo        | 2024-12-26 |
+|  V1.1.1  |       增加README.md        | 2024-12-27 |
+|  V1.1.2  | d435相机和底盘话题冲突问题 | 2025-01-09 |
+|  V1.2.0  |      增加自研夹爪仿真      | 2025-02-09 |
 
