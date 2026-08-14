@@ -165,7 +165,6 @@ include_directories(
 ## in contrast to setup.py, you can choose the destination
 catkin_install_python(PROGRAMS
   scripts/use_75_demo_all.py
-  scripts/use_65_demo_all.py
   scripts/detect_object.py
   scripts/lift_control.py
   scripts/pose_udp.py
